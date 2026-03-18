@@ -57,10 +57,12 @@ h1 {
   letter-spacing: -0.5px;
 }
 
-p {
-  color: #94a3b8;
+/* This targets only the <p> tags that are inside .login-container */
+.login-container p {
+  color: #94a3b8;      /* Your specific orange color */
   font-size: 15px;
   margin-bottom: 32px;
+  opacity: 1;          /* Ensures it's fully visible */
 }
 
 /* 6. Button Wrapper (The only part that stays bright white) */

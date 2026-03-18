@@ -26,6 +26,7 @@ Base.metadata.create_all(bind=engine)
 origins = [
     "http://localhost:5173",  # your Vite dev server
     "http://127.0.0.1:5173",
+    "https://chat-assistant-bot-d13f.onrender.com"
 ]
 
 app.add_middleware(

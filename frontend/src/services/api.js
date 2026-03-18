@@ -2,8 +2,8 @@ import axios from "axios";
 import { getToken } from "./auth";
 
 // Base URL for backend API
-const API_BASE = "https://chat-assistant-bot-d13f.onrender.com";
-// const API_BASE = "http://127.0.0.1:8000";
+// const API_BASE = "https://chat-assistant-bot-d13f.onrender.com";
+ const API_BASE = "http://127.0.0.1:8000";
 
 // Axios instance with Authorization header
 const api = axios.create({

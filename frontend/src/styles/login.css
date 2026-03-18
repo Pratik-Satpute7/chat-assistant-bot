@@ -1,32 +1,91 @@
-.login-container{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:linear-gradient(135deg,#1f2937,#111827);
-font-family:Arial, Helvetica, sans-serif;
+/* 1. Main Background: Deep Midnight Gradient */
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top right, #1e1b4b, #0f172a, #020617);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
 }
 
-.login-card{
-background:white;
-padding:40px;
-border-radius:12px;
-text-align:center;
-width:320px;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
+/* 2. The Glass Card: Clean and Sharp */
+.login-card {
+  background: rgba(255, 255, 255, 0.04); 
+  backdrop-filter: blur(20px);           
+  -webkit-backdrop-filter: blur(20px);
+  padding: 50px 40px;
+  border-radius: 28px;
+  text-align: center;
+  width: 100%;
+  max-width: 380px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  
+  /* Smooth transition for a "high-end" feel */
+  transition: transform 0.3s ease, background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
 }
 
-.google-btn{
-margin-top:20px;
-padding:12px 20px;
-border:none;
-background:#4285F4;
-color:white;
-font-size:16px;
-border-radius:8px;
-cursor:pointer;
+/* 3. SUBTLE HOVER: Just a tiny lift and a soft light-up */
+.login-card:hover {
+  transform: translateY(-4px); /* Very small movement */
+  background: rgba(255, 255, 255, 0.07); /* Slightly brighter glass */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Slightly clearer border */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); /* Shadow deepens just a bit */
 }
 
-.google-btn:hover{
-background:#3367d6;
+/* 4. Brand Icon (No rotation, just a clean box) */
+.brand-icon {
+  background: rgba(99, 102, 241, 0.1); 
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px auto;
+  border-radius: 16px;
+  color: #a5b4fc; 
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+/* 5. Typography */
+h1 {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+p {
+  color: #94a3b8;
+  font-size: 15px;
+  margin-bottom: 32px;
+}
+
+/* 6. Button Wrapper (The only part that stays bright white) */
+.google-button-wrapper {
+  display: flex;
+  justify-content: center;
+  background: white;
+  padding: 4px;
+  border-radius: 100px; /* Matches Google's "pill" button */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 7. Footer Links */
+.login-footer {
+  margin-top: 32px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.login-footer a {
+  color: #818cf8;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
 }

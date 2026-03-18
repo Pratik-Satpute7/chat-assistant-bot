@@ -1,0 +1,128 @@
+.sidebar{
+width:250px;
+padding:20px;
+display:flex;
+flex-direction:column;
+height: 100vh;
+position: fixed;
+   top: 0;                /* touch top */
+  left: 0;
+background: var(--sidebar-bg);
+  color: white; /* important for contrast */
+}
+
+.new-chat{
+padding:10px;
+border:none;
+border-radius:8px;
+background:#2563eb;
+color:white;
+cursor:pointer;
+margin-bottom:20px;
+}
+
+.sessions{
+overflow-y:auto;
+flex:1;
+}
+
+.session-item{
+padding:10px;
+border-radius:6px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+cursor:pointer;
+margin-bottom:5px;
+}
+
+.session-item:hover{
+background:#1f2937;
+}
+
+.session-item.active{
+background:#374151;
+}
+
+.session-menu{
+cursor:pointer;
+}
+
+.session-dropdown{
+position:absolute;
+background:white;
+color:black;
+border-radius:6px;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+.session-dropdown div{
+padding:8px 12px;
+cursor:pointer;
+}
+
+.session-dropdown div:hover{
+background:#eee;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.sessions {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Footer */
+.sidebar-footer {
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+/* User row */
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.user-info:hover {
+  background: #f0f0f0;
+}
+
+/* Settings dropdown */
+.settings-menu {
+  background: var(--bg);     /* ✅ dynamic */
+  color: var(--text);        /* ✅ dynamic */
+  margin-top: 8px;
+  background: #fff;
+  border-radius: 6px;
+  padding: 5px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.setting-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.setting-item:hover {
+  background: var(--chat-bg);
+}
+
+.logout {
+  color: red;
+}
+
+/* Dark mode */
+.dark-mode {
+  background: #1e1e1e;
+  color: #fff;
+}
+

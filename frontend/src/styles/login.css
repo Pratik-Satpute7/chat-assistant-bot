@@ -1,0 +1,32 @@
+.login-container{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#1f2937,#111827);
+font-family:Arial, Helvetica, sans-serif;
+}
+
+.login-card{
+background:white;
+padding:40px;
+border-radius:12px;
+text-align:center;
+width:320px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.google-btn{
+margin-top:20px;
+padding:12px 20px;
+border:none;
+background:#4285F4;
+color:white;
+font-size:16px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.google-btn:hover{
+background:#3367d6;
+}

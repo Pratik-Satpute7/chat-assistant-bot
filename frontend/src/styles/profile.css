@@ -1,0 +1,38 @@
+.profile-page{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+font-family:Arial, Helvetica, sans-serif;
+background:#f9fafb;
+}
+
+.profile-page img{
+width:120px;
+height:120px;
+border-radius:50%;
+margin-bottom:20px;
+}
+
+.profile-page h2{
+margin-bottom:10px;
+}
+
+.profile-page p{
+color:#555;
+margin-bottom:20px;
+}
+
+.profile-page button{
+padding:10px 20px;
+border:none;
+background:#ef4444;
+color:white;
+border-radius:8px;
+cursor:pointer;
+}
+
+.profile-page button:hover{
+background:#dc2626;
+}

@@ -13,6 +13,8 @@ class SendMessageRequest(BaseModel):
     # Message sent by user
     message: str
     
+    model: str = "gemini-2.5-flash"   # ✅ default
+    
     # 🔹 NEW: Response schema for messages
 class MessageResponse(BaseModel):
     id: UUID

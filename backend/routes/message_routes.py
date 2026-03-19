@@ -88,8 +88,8 @@ def send_message(data: SendMessageRequest,
     # -----------------------------------------------------------
     # 6️⃣ Generate AI response using Gemini
     # -----------------------------------------------------------
-    ai_reply = generate_ai_response(full_prompt)
-
+    ai_reply = generate_ai_response(full_prompt, data.model)# ✅ pass model from request
+    #print("MODEL USED:", data.model)
     # -----------------------------------------------------------
     # 7️⃣ Save AI response in database
     # -----------------------------------------------------------

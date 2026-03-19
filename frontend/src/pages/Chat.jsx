@@ -13,7 +13,8 @@ function Chat() {
   const [activeSession, setActiveSession] = useState(null);
   const [messages, setMessages] = useState([]);
   const [sessions, setSessions] = useState([]);
-  const [isTyping, setIsTyping] = useState(false); // ✅ NEW
+  const [isTyping, setIsTyping] = useState(false); // STATE FOR TYPING INDICATOR
+  const [model, setModel] = useState("gemini-2.5-flash"); // ✅ NEW STATE FOR MODEL SELECTION
 
   useEffect(() => {
     const user = getUser();
@@ -33,8 +34,8 @@ function Chat() {
 
       <div className="chat-section">
 
-        <ChatHeader />
-
+        
+        <ChatHeader model={model} setModel={setModel} /> {/* ✅ PASS MODEL STATE TO HEADER */}
         <ChatWindow
           session={activeSession}
           messages={messages}
@@ -50,6 +51,7 @@ function Chat() {
           generateSmartTitle={generateSmartTitle}
           renameSession={renameSession}
           setIsTyping={setIsTyping}  // ✅ PASS
+          model={model} // ✅ PASS MODEL TO MESSAGE INPUT
         />
 
       </div>

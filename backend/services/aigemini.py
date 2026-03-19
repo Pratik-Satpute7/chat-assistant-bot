@@ -13,7 +13,7 @@ for model in genai.list_models():
 
 # Load Gemini 2.0 Flash model
 # This model is optimized for fast responses and chat applications
-model = genai.GenerativeModel("gemini-2.5-flash")
+# model = genai.GenerativeModel("gemini-2.5-flash")
 
 
 # -----------------------------------------------------------
@@ -46,19 +46,16 @@ def build_chat_context(messages):
 # Purpose:
 # Send message or conversation prompt to Gemini and return response
 # -----------------------------------------------------------
-def generate_ai_response(user_message: str):
+def generate_ai_response(user_message: str, model_name="gemini-2.5-flash"):
     try:
+        # ✅ create model dynamically
+        model = genai.GenerativeModel(model_name)
 
-        # Send message or prompt to Gemini model
+        # Send message
         response = model.generate_content(user_message)
 
-        # Return generated text
         return response.text
 
     except Exception as e:
-
-        # Print error for debugging
         print("Gemini API Error:", e)
-
-        # Return fallback response
         return "AI service temporarily unavailable. Please try again later."

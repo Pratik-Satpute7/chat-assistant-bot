@@ -1,6 +1,9 @@
 import "../styles/input.css";
 import { useState } from "react";
 import { sendMessage, createSession } from "../services/api";
+import useSpeechToText from "../hooks/useSpeechToText";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
 
 function MessageInput({
   session,
@@ -12,7 +15,16 @@ function MessageInput({
   setIsTyping,
   model  // ✅ ADD THIS
 }) {
-
+  const { isListening, startListening, stopListening } = useSpeechToText();
+  const handleMicClick = () => {
+  if (isListening) {
+    stopListening();
+  } else {
+    startListening((voiceText) => {
+      setText((prev) => prev + " " + voiceText);
+    });
+  }
+};
   const [text, setText] = useState("");
 
   const handleSend = async () => {
@@ -90,17 +102,32 @@ function MessageInput({
 
   return (
     <div className="input-area">
-      <textarea
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="Ask something..."
-      />
+  <textarea
+    value={text}
+    onChange={(e) => setText(e.target.value)}
+    onKeyDown={handleKeyDown}
+    placeholder="Ask something..."
+  />
 
-      <button onClick={handleSend} disabled={!text.trim()}>
-        Send
-      </button>
-    </div>
+  {isListening && <span className="listening-text">Listening...</span>}
+
+  <div className="input-actions">
+    
+    {/* 🎤 MIC BUTTON */}
+      <button 
+        onClick={handleMicClick} 
+        className={isListening ? "mic-btn active" : "mic-btn"}
+    >
+      <FontAwesomeIcon icon={faMicrophone} />
+    </button>
+
+    {/* SEND BUTTON */}
+    <button onClick={handleSend} disabled={!text.trim()}>
+      Send
+    </button>
+
+  </div>
+</div>
   );
 }
 

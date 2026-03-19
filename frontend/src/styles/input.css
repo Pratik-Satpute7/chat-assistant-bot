@@ -42,3 +42,31 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.mic-btn {
+  background: #eee;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.mic-btn.active {
+  background: red;
+  color: white;
+  animation: pulse 1s infinite;
+}
+
+.listening-text {
+  font-size: 12px;
+  color: red;
+  margin-left: 10px;
+}
+
+/* 🔥 Pulse animation */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}

@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
+from sqlalchemy import desc
 import uuid
 
 # Models
@@ -38,7 +39,8 @@ def create_session(
     return {
         "message": "Session created",
         "session_id": str(new_session.id),
-        "title": new_session.session_name
+        "title": new_session.session_name,
+        "created_at": new_session.created_at   # ✅ ADD THIS
     }
 
 
@@ -50,7 +52,10 @@ def list_sessions(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_or_create_user)
 ):
-    sessions = db.query(ChatSession).filter(ChatSession.user_id == current_user.id).all()
+    sessions = db.query(ChatSession)\
+        .filter(ChatSession.user_id == current_user.id)\
+        .order_by(desc(ChatSession.created_at))\
+        .all()
 
     return [
         {

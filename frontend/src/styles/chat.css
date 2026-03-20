@@ -14,12 +14,16 @@ html, body {
 }
 
 .dark-mode {
-  --bg: #1e1e1e;
+  --bg: radial-gradient(circle at top right, #1e1b4b, #0f172a, #020617);
   --text: #ffffff;
-  --chat-bg: #2a2a2a;
-  --input-bg: #333;
+
+  --chat-bg: linear-gradient(180deg, #171717 0%, #0a0a0a 100%);
+
+  /* ✅ ADD THIS */
+  --input-bg: linear-gradient(180deg, #1f1f1f, #111111);
+
   --border: #444;
-  --header-bg: #2a2a2a;
+  --header-bg: linear-gradient(180deg, #171717 0%, #0a0a0a 100%);
   --header-text: #ffffff;
 }
 

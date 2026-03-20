@@ -22,6 +22,10 @@
   font-size: 14px;
   outline: none;
 }
+.input-area textarea:hover {
+  border-color: var(--text);
+
+}
 
 .input-area button {
   padding: 10px 16px;

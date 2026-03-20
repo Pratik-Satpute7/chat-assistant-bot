@@ -141,13 +141,25 @@
   margin-top: 5px;
 }
 
-.audio-btn,
+.audio-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+
+  opacity: 0.7;   /* ✅ always visible */
+  transition: 0.2s;
+}
+.audio-btn:hover {
+  opacity: 1;
+}
 .copy-btn {
   background: transparent;
   border: none;
   cursor: pointer;
   font-size: 16px;
-  opacity: 0.7;
+
+  opacity: 0;   /* ✅ hidden */
   transition: 0.2s;
 }
 

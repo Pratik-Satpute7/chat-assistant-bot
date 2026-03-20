@@ -3,7 +3,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { saveUser, saveToken } from "../services/auth";
-
+import API from "../services/api";
 function Login() {
   const navigate = useNavigate();
 
@@ -14,10 +14,11 @@ function Login() {
       const googleToken = credentialResponse.credential;
 
       // 2. Send that token to our backend (FastAPI) to verify it
-      const response = await axios.post(
-        "http://localhost:8000/auth/google-login",
-        { token: googleToken }
-      );
+      // const response = await axios.post(
+      //   "http://localhost:8000/auth/google-login",
+      //   { token: googleToken }
+      // );
+      const response = await API.post("/auth/google-login");
 
       // 3. Get the user data returned by our backend
       const user = response.data;

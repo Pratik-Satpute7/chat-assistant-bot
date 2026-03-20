@@ -24,7 +24,7 @@ function ChatHeader({ model, setModel }) {
 
   const models = [
     { label: "⚡ Flash (Fast)", value: "gemini-2.5-flash" },
-    { label: "🧠 Pro (Accurate)", value: "gemini-1.5-pro" },
+    { label: "🧠 gemini-2.0-flash", value: "gemini-2.0-flash" },
   ];
 
   return (

@@ -23,7 +23,10 @@ const [darkMode, setDarkMode] = useState(false); // theme toggle
   try {
     const data = await getSessions();
     if (Array.isArray(data)) {
-      setSessions(data);
+    //  setSessions(data);
+    setSessions(
+  data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+);
     } else {
       console.error("Unexpected response", data);
     }

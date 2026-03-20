@@ -18,7 +18,12 @@ function Login() {
       //   "http://localhost:8000/auth/google-login",
       //   { token: googleToken }
       // );
-      const response = await API.post("/auth/google-login");
+      // const response = await API.post("/auth/google-login");
+
+      const response = await axios.post(
+        "https://chat-assistant-bot-uiue.onrender.com/auth/google-login",
+        { token: googleToken }
+      );
 
       // 3. Get the user data returned by our backend
       const user = response.data;

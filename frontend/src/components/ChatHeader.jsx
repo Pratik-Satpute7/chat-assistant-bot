@@ -3,7 +3,8 @@ import { getUser } from "../services/auth";
 import { useState, useRef, useEffect } from "react";
 import "../styles/chat.css";
 
-function ChatHeader({ model, setModel }) {
+// ✅ Added onToggleSidebar prop to handle mobile menu
+function ChatHeader({ model, setModel, onToggleSidebar }) {
 
   const navigate = useNavigate();
   const user = getUser();
@@ -30,6 +31,11 @@ function ChatHeader({ model, setModel }) {
 
   return (
     <div className="chat-header">
+      
+      {/* ✅ NEW: Mobile Menu Toggle Button */}
+      <button className="mobile-menu-btn" onClick={onToggleSidebar}>
+        ☰
+      </button>
 
       {/* ✅ Custom Dropdown */}
       <div className="dropdown" ref={dropdownRef}>

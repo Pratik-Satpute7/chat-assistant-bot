@@ -2,12 +2,21 @@ import "../styles/message.css";
 import ReactMarkdown from "react-markdown";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVolumeUp, faStop } from "@fortawesome/free-solid-svg-icons";
+// ✅ Added faCheck as fasCheck and faCopy as fasCopy from the SOLID library
+import { faVolumeUp, faStop, faCheck as fasCheck, faCopy as fasCopy } from "@fortawesome/free-solid-svg-icons";
 
 function MessageBubble({ message }) {
 
   const [copied, setCopied] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+
+  // ✅ Mapping for FontAwesome icons using the SOLID prefix to avoid import errors
+  const byPrefixAndName = {
+    fas: { 
+      check: fasCheck,
+      copy: fasCopy 
+    }
+  };
 
   const text = message.content || message.text || "";
   console.log("messageBubble", text);
@@ -26,15 +35,6 @@ function MessageBubble({ message }) {
     });
   };
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Copy failed", err);
-    }
-  };
 
   // ✅ Clean markdown for speech only
   const cleanText = (text) => {
@@ -43,8 +43,20 @@ function MessageBubble({ message }) {
       .replace(/(\*\*|__|\*|_)/g, "")
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1")
       .replace(/`([^`]+)`/g, "$1")
-      .replace(/\s+/g, " ")
+      //.replace(/\s+/g, " ")
       .trim();
+  };
+  const handleCopy = async () => {
+    try {
+      // ✅ FIX: Use cleanText(text) instead of raw text to remove markdown symbols
+      const plainText = cleanText(text);
+      await navigator.clipboard.writeText(plainText);
+      
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Copy failed", err);
+    }
   };
 
   // ✅ Text → Speech
@@ -116,7 +128,12 @@ function MessageBubble({ message }) {
             onClick={handleCopy}
             type="button"
           >
-            {copied ? "✔" : "📋"}
+            {/* ✅ Updated to use fas prefix for both to ensure it works without extra installs */}
+            {copied ? (
+              <FontAwesomeIcon icon={byPrefixAndName.fas['check']} style={{ color: "#4caf50" }} />
+            ) : (
+              <FontAwesomeIcon icon={byPrefixAndName.fas['copy']} />
+            )}
           </button>
 
         </div>

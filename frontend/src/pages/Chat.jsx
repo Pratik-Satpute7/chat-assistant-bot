@@ -13,8 +13,11 @@ function Chat() {
   const [activeSession, setActiveSession] = useState(null);
   const [messages, setMessages] = useState([]);
   const [sessions, setSessions] = useState([]);
-  const [isTyping, setIsTyping] = useState(false); // STATE FOR TYPING INDICATOR
-  const [model, setModel] = useState("gemini-2.5-flash"); // ✅ NEW STATE FOR MODEL SELECTION
+  const [isTyping, setIsTyping] = useState(false);
+  const [model, setModel] = useState("gemini-2.5-flash");
+
+  // ✅ NEW: State for mobile sidebar visibility
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const user = getUser();
@@ -22,25 +25,41 @@ function Chat() {
   }, [navigate]);
 
   return (
-    <div className="chat-layout">
-
+    /* ✅ Added dynamic class to handle sidebar sliding */
+    <div className={`chat-layout ${isSidebarOpen ? "sidebar-mobile-open" : ""}`}>
+      
       <Sidebar
         activeSession={activeSession}
-        setActiveSession={setActiveSession}
+        setActiveSession={(session) => {
+          setActiveSession(session);
+          setIsSidebarOpen(false); // ✅ Auto-close sidebar on mobile after selecting chat
+        }}
         setMessages={setMessages}
         sessions={sessions}
         setSessions={setSessions}
       />
 
-      <div className="chat-section">
+      {/* ✅ Overlay to close sidebar when clicking the chat area on mobile */}
+      {isSidebarOpen && (
+        <div 
+          className="sidebar-overlay" 
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
 
-        
-        <ChatHeader model={model} setModel={setModel} /> {/* ✅ PASS MODEL STATE TO HEADER */}
+      <div className="chat-section">
+        {/* ✅ Pass toggle function to Header */}
+        <ChatHeader 
+          model={model} 
+          setModel={setModel} 
+          onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
+        />
+
         <ChatWindow
           session={activeSession}
           messages={messages}
           setMessages={setMessages}
-          isTyping={isTyping}   // ✅ PASS
+          isTyping={isTyping}
         />
 
         <MessageInput
@@ -50,12 +69,10 @@ function Chat() {
           setSessions={setSessions}
           generateSmartTitle={generateSmartTitle}
           renameSession={renameSession}
-          setIsTyping={setIsTyping}  // ✅ PASS
-          model={model} // ✅ PASS MODEL TO MESSAGE INPUT
+          setIsTyping={setIsTyping}
+          model={model}
         />
-
       </div>
-
     </div>
   );
 }

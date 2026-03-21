@@ -124,7 +124,48 @@ def rename_session(
 # -------------------------------
 @router.post("/session/generate-title")
 def generate_smart_title(data: dict):
-    first_message = data.get("message", "")
-    # Use your AI logic here or simple truncate/clean text
-    smart_title = first_message[:30].strip()  # temp logic
-    return {"title": smart_title}
+    try:
+        first_message = data.get("message", "").strip()
+
+        # 🔹 Small / useless input → fallback
+        if not first_message or len(first_message) < 5:
+            return {"title": "New Chat."}
+
+        # 🔹 Replace this with your actual AI response
+       # ai_response = first_message[:100]  # simulate AI output
+        prompt = f"""
+            Generate a very short chat title (max 4 words).
+
+            Rules:
+            - Only one title
+            - No numbering
+            - No options
+            - No explanation
+            - No punctuation at start or end
+
+            Message: {first_message}
+            """
+        ai_response = generate_ai_response(prompt)
+        title = ai_response.strip()
+
+        # 🔹 If AI returns list → extract FIRST option
+        match = re.search(r"1\.\s*(.*?)(?:\n|$)", title)
+        if match:
+            title = match.group(1)
+
+        # 🔹 Clean markdown / symbols
+        title = re.sub(r"[*#`]", "", title).strip()
+
+        # 🔹 If still bad → fallback
+        if (
+            not title or
+            len(title) > 40 or
+            "options" in title.lower() or
+            "unavailable" in title.lower()
+        ):
+            return {"title": "New Chat.."}
+
+        return {"title": title}
+
+    except Exception:
+        return {"title": "New Chat"}

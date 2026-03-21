@@ -9,6 +9,8 @@ position: fixed;
   left: 0;
 background: var(--sidebar-bg);
   color: white; /* important for contrast */
+  z-index: 1000; /* Ensure it stays above chat content */
+  transition: transform 0.3s ease; /* Smooth slide in/out */
 }
 
 .new-chat{
@@ -126,3 +128,19 @@ background:#eee;
   color: #fff;
 }
 
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .sidebar {
+    /* To fully hide it, uncomment the line below. 
+       Note: You will need a 'Menu' button in Header to bring it back. */
+    /* transform: translateX(-100%); */
+    
+    width: 80%; /* Take more width on small screens when visible */
+    max-width: 300px;
+  }
+  
+  /* Make session items easier to tap on mobile */
+  .session-item {
+    padding: 15px 10px;
+  }
+}

@@ -8,8 +8,8 @@ from config import GEMINI_API_KEY
 # Configure Gemini client using API key
 genai.configure(api_key=GEMINI_API_KEY)
 
-for model in genai.list_models():
-    print(" Gemini model Names : : : ",model.name)
+# for model in genai.list_models():
+#      print(" Gemini model Nmaes : : : ",model.name)
 
 # Load Gemini 2.0 Flash model
 # This model is optimized for fast responses and chat applications

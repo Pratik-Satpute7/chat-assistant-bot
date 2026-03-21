@@ -171,3 +171,16 @@
 .audio-btn {
   color: #4caf50;
 }
+
+/* 📱 MOBILE MESSAGES */
+@media (max-width: 768px) {
+  .message {
+    max-width: 85%; /* Let messages be wider on small screens */
+    font-size: 15px; /* Slightly smaller text for mobile */
+  }
+  
+  /* Ensure actions like copy/audio are easy to tap */
+  .message-actions {
+    gap: 15px;
+  }
+}

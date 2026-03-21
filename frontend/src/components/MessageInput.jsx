@@ -72,20 +72,35 @@ function MessageInput({
     setMessages(prev => [...prev, aiMessage]);
     setIsTyping(false); // stop loader
 
-    // Smart title
+    // auto Smart title edge case: only if it's a new session with default title
     if (currentSession.title === "New Chat") {
-      let newTitle;
-      try {
-        newTitle = await generateSmartTitle(text);
-        if (!newTitle || newTitle.trim() === "") newTitle = text.substring(0, 30);
-      } catch {
-        newTitle = text.substring(0, 30);
-      }
+  let newTitle;
 
-      await renameSession(currentSession.id, newTitle);
-      setSessions(prev => prev.map(s => s.id === currentSession.id ? { ...s, title: newTitle } : s));
-      setActiveSession(prev => ({ ...prev, title: newTitle }));
+  try {
+    const res = await generateSmartTitle(text);
+
+    // 🔹 Extract title correctly from backend response
+    newTitle = res?.title;
+
+    // 🔹 Final safety fallback
+    if (!newTitle || newTitle.trim() === "") {
+      newTitle = "New Chat";
     }
+
+  } catch {
+    newTitle = "New Chat";
+  }
+
+  await renameSession(currentSession.id, newTitle);
+
+  setSessions(prev =>
+    prev.map(s =>
+      s.id === currentSession.id ? { ...s, title: newTitle } : s
+    )
+  );
+
+  setActiveSession(prev => ({ ...prev, title: newTitle }));
+}
 
   } catch (error) {
     console.error(error);

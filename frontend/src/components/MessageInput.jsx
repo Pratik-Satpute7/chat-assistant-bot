@@ -1,5 +1,5 @@
 import "../styles/input.css";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { sendMessage, createSession } from "../services/api";
 import useSpeechToText from "../hooks/useSpeechToText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,6 +15,7 @@ function MessageInput({
   setIsTyping,
   model  // ✅ ADD THIS
 }) {
+  const textareaRef = useRef(null); // ✅ ADD THIS (MISSING)
   const { isListening, startListening, stopListening } = useSpeechToText();
   const handleMicClick = () => {
   if (isListening) {
@@ -52,6 +53,10 @@ function MessageInput({
 
   setMessages(prev => [...prev, userMessage]);
   setText("");
+  // ✅ RESET TEXTAREA HEIGHT AFTER SEND
+if (textareaRef.current) {
+  textareaRef.current.style.height = "15px";// reset to min-height
+}
   setIsTyping(true); // start loader
 
   try {
@@ -114,10 +119,19 @@ console.log("SMART TITLE RESPONSE:", res); // 🔥 ADD THIS
       handleSend();
     }
   };
+  // ✅ AUTO RESIZE TEXTAREA (SAFE WAY)
+useEffect(() => {
+  const el = textareaRef.current;
+  if (el) {
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+  }
+}, [text]);
 
   return (
     <div className="input-area">
   <textarea
+    ref={textareaRef} // ✅ ADD THIS
     value={text}
     onChange={(e) => setText(e.target.value)}
     onKeyDown={handleKeyDown}

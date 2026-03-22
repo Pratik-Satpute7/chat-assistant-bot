@@ -26,7 +26,9 @@ function ChatHeader({ model, setModel, onToggleSidebar }) {
   const models = [
     { label: "⚡ Flash (Fast)", value: "gemini-2.5-flash" },
     { label: "🧠 gemini-2.0-flash", value: "gemini-2.0-flash" },
-    { label: "🧠 gemini-flash-latest", value: "gemini-flash-latest" }
+    { label: "⚡ gemini-flash-latest", value: "gemini-flash-latest" },
+    { label: "🧠 gemini-2.5-flash-lite", value: "gemini-2.5-flash-lite" },
+    { label: "⚡ gemini-flash-lite-latest", value: "gemini-flash-lite-latest" }
   ];
 
   return (

@@ -6,6 +6,7 @@ from database import SessionLocal
 
 # Import Message model
 from models.message import Message
+import re 
 
 # Import Session model
 from models.session import Session
@@ -139,9 +140,77 @@ def get_messages(session_id: str,
 # api for session auto rename
 @router.post("/session/smart-title")
 def generate_title(data: dict):
+    try:
+        first_message = data.get("message", "").strip()
 
-    prompt = f"Generate a short 4-6 word title for this message:\n{data['message']}"
+        # 🔹 Small / useless input → fallback
+        if not first_message or len(first_message) < 5:
+            return {"title": "New Chat"}
 
-    title = generate_ai_response(prompt)
+        # 🔹 Strict prompt to avoid multiple options
+        prompt = f"""
+        Generate ONLY ONE short chat title (max 4 words).
 
-    return {"title": title.strip()}
+        Rules:
+        - Only one title
+        - No numbering
+        - No multiple options
+        - No explanation
+        - No symbols like *, #, :
+        - No full sentence
+
+        Message: {first_message}
+        """
+
+        ai_response = generate_ai_response(prompt)
+        title = ai_response.strip()
+        # 🔹 Handle AI failure response → fallback to first 10 words of user input
+        if "temporarily unavailable" in title.lower():
+            fallback_title = " ".join(first_message.split()[:10])
+            return {"title": fallback_title or "New Chat..."}
+
+        # 🔹 If AI returns list → extract FIRST valid title
+
+        # Remove "Here are..." type prefix
+        title = re.sub(r"^(here are.*?:)", "", title, flags=re.IGNORECASE).strip()
+        
+        # 🔹 Handle inline numbered options (single line case)
+        inline_numbered = re.findall(r"\d+\.\s*([^0-9]+?)(?=\d+\.|$)", title)
+
+        # Extract bullet points (*, -, •)
+        bullet_titles = re.findall(r"[*\-•]\s*(.+)", title)
+
+        # Extract numbered list (1. 2. etc.)
+        numbered_titles = re.findall(r"\d+\.\s*(.+)", title)
+
+        if inline_numbered:
+            title = inline_numbered[0]
+        elif bullet_titles:
+            title = bullet_titles[0]
+        elif numbered_titles:
+            title = numbered_titles[0]
+        else:
+            title = title.split("\n")[0]
+
+        # 🔹 Remove numbering like "1. Title"
+        title = re.sub(r"^\d+\.\s*", "", title)
+
+        # 🔹 Remove unwanted symbols
+        title = re.sub(r"[*#:`]", "", title).strip()
+
+        # 🔹 Cut to max 4 words
+        title = " ".join(title.split()[:4])
+
+        # 🔹 Final validation
+        if (
+            not title or
+            len(title) > 40 or
+            "option" in title.lower() or
+            "here are" in title.lower()
+        ):
+            return {"title": "New Chat"}
+
+        return {"title": title}
+
+    except Exception:
+        return {"title": "New Chat"}

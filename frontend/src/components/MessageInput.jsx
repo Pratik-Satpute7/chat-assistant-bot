@@ -78,10 +78,10 @@ function MessageInput({
 
   try {
     const res = await generateSmartTitle(text);
-
+console.log("SMART TITLE RESPONSE:", res); // 🔥 ADD THIS
     // 🔹 Extract title correctly from backend response
-    newTitle = res?.title;
-
+    // newTitle = res?.title;
+      newTitle = res;
     // 🔹 Final safety fallback
     if (!newTitle || newTitle.trim() === "") {
       newTitle = "New Chat";

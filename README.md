@@ -1,10 +1,3 @@
-Perfect 👍 here is your **complete final `README.md` in one clean file** — properly formatted and ready to paste into GitHub.
-
----
-
-# ✅ **Complete README.md**
-
-````markdown
 # 🤖 AI Chat Application
 
 An advanced full-stack AI-powered chat application that enables users to interact with an AI model in real time. The system supports multiple chat sessions, maintains conversation history, and provides context-aware responses using AI. Additional features like voice input, text-to-speech, and markdown rendering enhance the overall user experience.
@@ -15,7 +8,7 @@ An advanced full-stack AI-powered chat application that enables users to interac
 
 ### 🔹 1. Clone the Repository
 ```bash
-git clone <your-repo-link>
+git clone https://github.com/Pratik-Satpute7/chat-assistant-bot.git
 cd ai-chat-application
 ````
 
@@ -25,11 +18,20 @@ cd ai-chat-application
 
 ```bash
 cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
 
----
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+
+# On Windows:
+venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run server
+uvicorn main:app --reload
 
 ### 🔹 3. Frontend Setup (React)
 
@@ -70,7 +72,7 @@ GEMINI_API_KEY=your_gemini_api_key
 * Markdown Rendering
 * Loader / Typing Indicator
 * Dark and Light Mode
-* Streaming Response (In Progress)
+* Ai Model Selection
 
 ---
 
@@ -157,44 +159,9 @@ React Frontend → FastAPI Backend → Gemini API
                    PostgreSQL
 ```
 
----
-
-## 🚀 Future Improvements
-
-* Streaming AI responses
-* Improved UI/UX animations
-* Chat export functionality
-* Multi-model AI support
-
----
 
 ## 👨‍💻 Author
 
-* Your Name
+* Pratik Satpute
 
 ---
-
-```
-
----
-
-# 🔥 You’re Ready Now
-
-Just:
-1. Copy this  
-2. Paste into `README.md`  
-3. Replace:
-   - `<your-repo-link>`
-   - `Your Name`
-
----
-
-# 🚀 If you want to make it 🔥 next level
-
-I can still help you add:
-- 📸 Screenshots section (very impactful)
-- 🏷️ GitHub badges
-- 📁 Folder structure  
-
-Just say: **“make it pro level”** 😄
-```

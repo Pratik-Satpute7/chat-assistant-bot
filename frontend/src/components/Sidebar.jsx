@@ -199,7 +199,7 @@ function Sidebar({ activeSession, setActiveSession, sessions, setSessions }) {
 
             {/* Theme Toggle */}
             <div
-              className="setting-item"
+              className="setting-item theme-toggle"
               onClick={handleToggleTheme}
             >
               Switch to {darkMode ? "Light" : "Dark"} Mode

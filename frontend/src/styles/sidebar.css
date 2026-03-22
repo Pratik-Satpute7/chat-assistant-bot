@@ -115,7 +115,7 @@ background:#eee;
 }
 
 .setting-item:hover {
-  background: var(--chat-bg);
+  background: #d4d4d4;
 }
 
 .logout {
@@ -126,6 +126,26 @@ background:#eee;
 .dark-mode {
   background: #1e1e1e;
   color: #fff;
+}
+/* 🔹 Theme toggle (dynamic color based on mode) */
+.theme-toggle {
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+/* 🔥 Light Mode → darker text */
+:root .theme-toggle {
+  color: #111; /* dark text for light mode */
+}
+
+/* 🔥 Dark Mode → highlight color */
+.dark-mode .theme-toggle {
+  color: #000000; 
+}
+
+/* 🔥 Hover effect */
+.theme-toggle:hover {
+  border-radius: 4px;
 }
 
 /* Mobile responsiveness */

@@ -1,8 +1,10 @@
+/* Make the page take full height and prevent scrolling */
 html, body {
   height: 100%;
-  overflow: hidden;   /* ✅ VERY IMPORTANT */
+  overflow: hidden;   /* VERY IMPORTANT */
 }
 
+/* Define color variables for light and dark themes */
 :root {
   --bg: #ffffff;
   --text: #000000;
@@ -15,17 +17,19 @@ html, body {
   --sidebar-width: 275px; /* Added for consistency */
 }
 
+/* Dark mode color overrides */
 .dark-mode {
   --bg: radial-gradient(circle at top right, #1e1b4b, #0f172a, #020617);
   --text: #ffffff;
   --chat-bg: linear-gradient(180deg, #171717 0%, #0a0a0a 100%);
-  /* ✅ ADD THIS */
+  /* ADD THIS */
   --input-bg: linear-gradient(180deg, #1f1f1f, #111111);
   --border: #444;
   --header-bg: linear-gradient(180deg, #171717 0%, #0a0a0a 100%);
   --header-text: #ffffff;
 }
 
+/* Main layout container for the entire chat page */
 .chat-layout {
   display: flex;
   height: 100vh;
@@ -36,18 +40,20 @@ html, body {
   overflow: hidden;
 }
 
+/* The main chat area (right side) */
 .chat-section {
-  margin-left: var(--sidebar-width);   /* ✅ SAME as sidebar width */
+  margin-left: var(--sidebar-width);   /* SAME as sidebar width */
   flex: 1;
   display: flex;
   flex-direction: column;
   background: var(--bg);
   width: 100%; /* Ensure full width */
   height: 100vh;
-  min-width: 0; /* ✅ Prevents shrinking content from pushing off screen */
+  min-width: 0; /* Prevents shrinking content from pushing off screen */
   transition: margin-left 0.3s ease; /* Smooth transition if you toggle sidebar */
 }
 
+/* The scrollable area where messages are shown */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
@@ -58,17 +64,17 @@ html, body {
 
 /* Avatar and Header */
 .chat-header {
-  background: var(--header-bg);   /* ✅ keep */
-  color: var(--header-text);      /* ✅ keep */
+  background: var(--header-bg);   /* keep */
+  color: var(--header-text);      /* keep */
   height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  border-bottom: 1px solid var(--border); /* ✅ make dynamic */
+  border-bottom: 1px solid var(--border); /* make dynamic */
 }
 
-/* ✅ NEW: Mobile Menu Button styling */
+/* NEW: Mobile Menu Button styling */
 .mobile-menu-btn {
   display: none; /* Hidden on Desktop */
   background: transparent;
@@ -79,7 +85,7 @@ html, body {
   padding: 5px;
 }
 
-/* ✅ NEW: Sidebar Overlay */
+/* NEW: Sidebar Overlay */
 .sidebar-overlay {
   display: none;
   position: fixed;
@@ -91,6 +97,7 @@ html, body {
   z-index: 998;
 }
 
+/* User avatar in the header */
 .avatar {
   width: 40px;
   height: 40px;

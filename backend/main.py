@@ -24,7 +24,7 @@ app = FastAPI()
 Base.metadata.create_all(bind=engine)
 
 origins = [
-    "http://localhost:5173",  # your Vite dev server
+    "http://localhost:5173",  # my Vite dev server
     "https://chat-assistant-bot.netlify.app",
     "https://chat-assistant-bot-uiue.onrender.com"
 ]

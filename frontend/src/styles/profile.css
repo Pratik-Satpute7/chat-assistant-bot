@@ -1,4 +1,4 @@
-/* 🌗 Use same variables from chat.css */
+/*  Use same variables from chat.css */
 .profile-page {
   min-height: 100vh;
   display: flex;
@@ -11,11 +11,11 @@
   background: var(--bg);
   color: var(--text);
 
-  padding: 20px; /* ✅ for mobile spacing */
+  padding: 20px; /* for mobile spacing */
   text-align: center;
 }
 
-/* 🖼 Avatar */
+/*  Avatar */
 .profile-page img {
   width: 120px;
   height: 120px;
@@ -24,22 +24,22 @@
   object-fit: cover;
 }
 
-/* 🧑 Name */
+/*  Name */
 .profile-page h2 {
   margin-bottom: 10px;
   font-size: 22px;
 }
 
-/* 📧 Email / text */
+/*  Email / text */
 .profile-page p {
   color: var(--text);
-  opacity: 0.7;   /* ✅ softer in both modes */
+  opacity: 0.7;   /*  softer in both modes */
   margin-bottom: 20px;
   font-size: 14px;
-  word-break: break-word; /* ✅ prevents overflow */
+  word-break: break-word; /*  prevents overflow */
 }
 
-/* 🔴 Logout button */
+/*  Logout button */
 .profile-page button {
   padding: 10px 20px;
   border: none;
@@ -54,7 +54,7 @@
   background: #dc2626;
 }
 
-/* 📱 RESPONSIVE DESIGN */
+/*  RESPONSIVE DESIGN */
 @media (max-width: 600px) {
 
   .profile-page img {
@@ -71,7 +71,7 @@
   }
 
   .profile-page button {
-    width: 100%;      /* ✅ full width on mobile */
+    width: 100%;      /*  full width on mobile */
     max-width: 250px;
   }
 }

@@ -1,27 +1,37 @@
+// It supports:
+// 1. Rendering the message text with Markdown formatting
+// 2. Showing the timestamp in a readable format
+// 3. Copying the message text to clipboard (for AI messages)
+// 4. Text-to-speech functionality with language detection (English/Hindi/Marathi)
+// 5. Showing action buttons only for AI messages
 import "../styles/message.css";
 import ReactMarkdown from "react-markdown";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// ✅ Added faCheck as fasCheck and faCopy as fasCopy from the SOLID library
+// Importing icons for volume, stop, check, and copy from FontAwesome
 import { faVolumeUp, faStop, faCheck as fasCheck, faCopy as fasCopy } from "@fortawesome/free-solid-svg-icons";
 
+// It shows the message text, timestamp, and buttons for speaking and copying (for AI messages).
 function MessageBubble({ message }) {
 
+  // State to track if text has been copied
   const [copied, setCopied] = useState(false);
+  // State to track if text-to-speech is active
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  // ✅ Mapping for FontAwesome icons using the SOLID prefix to avoid import errors
+  // Mapping for FontAwesome icons to avoid import issues
   const byPrefixAndName = {
-    fas: { 
+    fas: {
       check: fasCheck,
-      copy: fasCopy 
+      copy: fasCopy
     }
   };
 
+  // Get the message text from the message object
   const text = message.content || message.text || "";
-  console.log("messageBubble", text);
+  {/* console.log("messageBubble", text);*/}
 
-  // ✅ Format timestamp (HH:MM AM/PM)
+  // Function to format the timestamp into a readable time
   const formatTime = (time) => {
     if (!time) return "";
 
@@ -36,51 +46,52 @@ function MessageBubble({ message }) {
   };
 
 
-  // ✅ Clean markdown for speech only
+  // Function to clean markdown formatting from text for speech
   const cleanText = (text) => {
     return text
-      .replace(/#{1,6}\s?/g, "")
-      .replace(/(\*\*|__|\*|_)/g, "")
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1")
-      .replace(/`([^`]+)`/g, "$1")
-      //.replace(/\s+/g, " ")
+      .replace(/#{1,6}\s?/g, "") // Remove headers
+      .replace(/(\*\*|__|\*|_)/g, "") // Remove bold/italic
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1") // Remove links, keep text
+      .replace(/`([^`]+)`/g, "$1") // Remove code blocks
+      //.replace(/\s+/g, " ") // Commented out: remove extra spaces
       .trim();
   };
+  // Function to copy the message text to clipboard
   const handleCopy = async () => {
     try {
-      // ✅ FIX: Use cleanText(text) instead of raw text to remove markdown symbols
+      // Use cleaned text without markdown for copying
       const plainText = cleanText(text);
       await navigator.clipboard.writeText(plainText);
       
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
     } catch (err) {
       console.error("Copy failed", err);
     }
   };
 
-  // ✅ Text → Speech
+  // Function to handle text-to-speech
   const handleSpeak = () => {
     if (isSpeaking) {
-      window.speechSynthesis.cancel();
+      window.speechSynthesis.cancel(); // Stop speaking if already speaking
       setIsSpeaking(false);
       return;
     }
 
-    const cleaned = cleanText(text);
+    const cleaned = cleanText(text); // Clean text for speech
 
     const utterance = new SpeechSynthesisUtterance(cleaned);
 
-    // 🌍 Language detection (Hindi/Marathi/English)
+    // Detect if text is in Hindi or Marathi (Devanagari script)
     const isHindiOrMarathi = /[\u0900-\u097F]/.test(cleaned);
 
     if (isHindiOrMarathi) {
-      utterance.lang = "hi-IN";
+      utterance.lang = "hi-IN"; // Set to Hindi
     } else {
-      utterance.lang = "en-IN";
+      utterance.lang = "en-IN"; // Set to English
     }
 
-    // 🎤 Voice selection
+    // Find a matching voice for the language
     const voices = window.speechSynthesis.getVoices();
     const matchedVoice = voices.find(v => v.lang === utterance.lang);
 
@@ -90,30 +101,30 @@ function MessageBubble({ message }) {
       console.warn("Voice not available, using default");
     }
 
-    utterance.onend = () => setIsSpeaking(false);
+    utterance.onend = () => setIsSpeaking(false); // When speech ends, update state
 
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utterance);
+    window.speechSynthesis.cancel(); // Cancel any previous speech
+    window.speechSynthesis.speak(utterance); // Start speaking
 
     setIsSpeaking(true);
   };
 
   return (
     <div className={`message ${message.role}`}>
-
+      {/* Render the message text with markdown support */}
       <ReactMarkdown>{text}</ReactMarkdown>
 
-      {/* ✅ Timestamp */}
+      {/* Show the timestamp */}
       <div className="message-time">
         {formatTime(message.created_at)}
-        {console.log("RAW TIME:", message.created_at)}
+        {/*console.log("RAW TIME:", message.created_at)*/}
       </div>
 
-      {/* ✅ Actions */}
+      {/* Show action buttons only for AI messages */}
       {(message.role === "assistant" || message.role === "ai") && (
         <div className="message-actions">
 
-          {/* 🔊 AUDIO BUTTON */}
+          {/* Button to play or stop speech */}
           <button
             className="audio-btn"
             onClick={handleSpeak}
@@ -122,13 +133,13 @@ function MessageBubble({ message }) {
             <FontAwesomeIcon icon={isSpeaking ? faStop : faVolumeUp} />
           </button>
 
-          {/* 📋 COPY BUTTON */}
+          {/* Button to copy the message */}
           <button
             className="copy-btn"
             onClick={handleCopy}
             type="button"
           >
-            {/* ✅ Updated to use fas prefix for both to ensure it works without extra installs */}
+            {/* Show check icon if copied, else copy tick*/}
             {copied ? (
               <FontAwesomeIcon icon={byPrefixAndName.fas['check']} style={{ color: "#4caf50" }} />
             ) : (

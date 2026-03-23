@@ -127,11 +127,11 @@ def generate_smart_title(data: dict):
     try:
         first_message = data.get("message", "").strip()
 
-        # 🔹 Small / useless input → fallback
+        #  Small / useless input → fallback
         if not first_message or len(first_message) < 5:
             return {"title": "New Chat."}
 
-        # 🔹 Replace this with your actual AI response
+        
        # ai_response = first_message[:100]  # simulate AI output
         prompt = f"""
             Generate a very short chat title (max 4 words).
@@ -148,15 +148,15 @@ def generate_smart_title(data: dict):
         ai_response = generate_ai_response(prompt)
         title = ai_response.strip()
 
-        # 🔹 If AI returns list → extract FIRST option
+        #  If AI returns list → extract FIRST option
         match = re.search(r"1\.\s*(.*?)(?:\n|$)", title)
         if match:
             title = match.group(1)
 
-        # 🔹 Clean markdown / symbols
+        #  Clean markdown / symbols
         title = re.sub(r"[*#`]", "", title).strip()
 
-        # 🔹 If still bad → fallback
+        #  If still bad → fallback
         if (
             not title or
             len(title) > 40 or

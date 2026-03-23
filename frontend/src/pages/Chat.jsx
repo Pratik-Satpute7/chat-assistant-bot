@@ -8,38 +8,48 @@ import MessageInput from "../components/MessageInput";
 import { renameSession, generateSmartTitle } from "../services/api";
 import "../styles/chat.css";
 
+// Main chat page component that brings together all chat-related UI elements.
+// It manages the active session, messages, sessions list, and handles mobile sidebar.
 function Chat() {
   const navigate = useNavigate();
+
+  // Currently selected chat session
   const [activeSession, setActiveSession] = useState(null);
+  // List of messages in the current session
   const [messages, setMessages] = useState([]);
+  // All available chat sessions
   const [sessions, setSessions] = useState([]);
+  // Shows typing indicator when AI is responding
   const [isTyping, setIsTyping] = useState(false);
+  // Selected AI model for responses
   const [model, setModel] = useState("gemini-2.5-flash");
 
-  // ✅ NEW: State for mobile sidebar visibility
+  // State to control sidebar visibility on mobile devices
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  // Check if user is logged in, redirect to login if not
   useEffect(() => {
     const user = getUser();
     if (!user) navigate("/");
   }, [navigate]);
 
   return (
-    /* ✅ Added dynamic class to handle sidebar sliding */
+    // Main layout container with dynamic class for mobile sidebar
     <div className={`chat-layout ${isSidebarOpen ? "sidebar-mobile-open" : ""}`}>
       
+      {/* Sidebar component for session management */}
       <Sidebar
         activeSession={activeSession}
         setActiveSession={(session) => {
           setActiveSession(session);
-          setIsSidebarOpen(false); // ✅ Auto-close sidebar on mobile after selecting chat
+          setIsSidebarOpen(false); // Close sidebar on mobile after selection
         }}
         setMessages={setMessages}
         sessions={sessions}
         setSessions={setSessions}
       />
 
-      {/* ✅ Overlay to close sidebar when clicking the chat area on mobile */}
+      {/* Overlay to close sidebar when clicking outside on mobile */}
       {isSidebarOpen && (
         <div 
           className="sidebar-overlay" 
@@ -47,14 +57,16 @@ function Chat() {
         ></div>
       )}
 
+      {/* Main chat area */}
       <div className="chat-section">
-        {/* ✅ Pass toggle function to Header */}
+        {/* Header with model selector and mobile menu toggle */}
         <ChatHeader 
           model={model} 
           setModel={setModel} 
           onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
         />
 
+        {/* Chat messages display */}
         <ChatWindow
           session={activeSession}
           messages={messages}
@@ -62,6 +74,7 @@ function Chat() {
           isTyping={isTyping}
         />
 
+        {/* Input area for sending messages */}
         <MessageInput
           session={activeSession}
           setMessages={setMessages}

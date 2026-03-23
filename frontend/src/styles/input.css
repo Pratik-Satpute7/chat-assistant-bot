@@ -75,14 +75,14 @@ textarea {
   margin-left: 10px;
 }
 
-/* 🔥 Pulse animation */
+/*  Pulse animation */
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.15); }
   100% { transform: scale(1); }
 }
 
-/* 📱 MOBILE INPUT */
+/*  MOBILE INPUT */
 @media (max-width: 480px) {
   .input-area {
     padding: 10px; /* Tighter padding on very small screens */

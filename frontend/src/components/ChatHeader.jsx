@@ -1,18 +1,23 @@
+// 1. AI model selection dropdown
+// 2. Mobile menu toggle button (for responsive design)
+// 3. User avatar with navigation to profile
+// 4. Handles outside clicks to close dropdown menus
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../services/auth";
 import { useState, useRef, useEffect } from "react";
 import "../styles/chat.css";
 
-// ✅ Added onToggleSidebar prop to handle mobile menu
 function ChatHeader({ model, setModel, onToggleSidebar }) {
 
   const navigate = useNavigate();
   const user = getUser();
 
+  // State to control if the dropdown is open
   const [open, setOpen] = useState(false);
+  // Reference to the dropdown element for detecting outside clicks
   const dropdownRef = useRef();
 
-  // ✅ close on outside click
+  // Effect to close the dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -23,6 +28,7 @@ function ChatHeader({ model, setModel, onToggleSidebar }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // List of available AI models with labels and values
   const models = [
     { label: "⚡ Flash (Fast)", value: "gemini-2.5-flash" },
     { label: "🧠 gemini-2.0-flash", value: "gemini-2.0-flash" },
@@ -34,19 +40,21 @@ function ChatHeader({ model, setModel, onToggleSidebar }) {
   return (
     <div className="chat-header">
       
-      {/* ✅ NEW: Mobile Menu Toggle Button */}
+      {/* Button to toggle the sidebar on mobile devices */}
       <button className="mobile-menu-btn" onClick={onToggleSidebar}>
         ☰
       </button>
 
-      {/* ✅ Custom Dropdown */}
+      {/* Custom dropdown for selecting AI model */}
       <div className="dropdown" ref={dropdownRef}>
         
+        {/* Trigger button for the dropdown */}
         <div className="dropdown-trigger" onClick={() => setOpen(!open)}>
           {models.find(m => m.value === model)?.label}
           <span className={`arrow ${open ? "open" : ""}`}>⌄</span>
         </div>
 
+        {/* Dropdown menu with model options */}
         {open && (
           <div className="dropdown-menu">
             {models.map((m) => (
@@ -54,8 +62,8 @@ function ChatHeader({ model, setModel, onToggleSidebar }) {
                 key={m.value}
                 className={`dropdown-item ${model === m.value ? "active" : ""}`}
                 onClick={() => {
-                  setModel(m.value);
-                  setOpen(false);
+                  setModel(m.value);// select new model
+                  setOpen(false);// close dropdown
                 }}
               >
                 {m.label}
@@ -65,7 +73,7 @@ function ChatHeader({ model, setModel, onToggleSidebar }) {
         )}
       </div>
 
-      {/* ✅ Avatar */}
+      {/* User avatar that navigates to profile page */}
       <img
         className="avatar"
         src={user?.picture}

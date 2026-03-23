@@ -100,8 +100,8 @@ background:#eee;
 
 /* Settings dropdown */
 .settings-menu {
-  background: var(--bg);     /* ✅ dynamic */
-  color: var(--text);        /* ✅ dynamic */
+  background: var(--bg);     /*  dynamic */
+  color: var(--text);        /*  dynamic */
   margin-top: 8px;
   background: #fff;
   border-radius: 6px;
@@ -127,23 +127,23 @@ background:#eee;
   background: #1e1e1e;
   color: #fff;
 }
-/* 🔹 Theme toggle (dynamic color based on mode) */
+/*  Theme toggle (dynamic color based on mode) */
 .theme-toggle {
   font-weight: 500;
   transition: all 0.2s ease;
 }
 
-/* 🔥 Light Mode → darker text */
+/* Light Mode → darker text */
 :root .theme-toggle {
   color: #111; /* dark text for light mode */
 }
 
-/* 🔥 Dark Mode → highlight color */
+/*  Dark Mode → highlight color */
 .dark-mode .theme-toggle {
   color: #000000; 
 }
 
-/* 🔥 Hover effect */
+/*  Hover effect */
 .theme-toggle:hover {
   border-radius: 4px;
 }
@@ -151,15 +151,11 @@ background:#eee;
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .sidebar {
-    /* To fully hide it, uncomment the line below. 
-       Note: You will need a 'Menu' button in Header to bring it back. */
-    /* transform: translateX(-100%); */
-    
     width: 80%; /* Take more width on small screens when visible */
     max-width: 300px;
   }
   
-  /* Make session items easier to tap on mobile */
+
   .session-item {
     padding: 15px 10px;
   }

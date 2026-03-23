@@ -1,4 +1,4 @@
-/* 1. Main Background: Deep Midnight Gradient */
+/*  Main Background: Deep Midnight Gradient */
 .login-container {
   height: 100vh;
   display: flex;
@@ -9,7 +9,7 @@
   margin: 0;
 }
 
-/* 2. The Glass Card: Clean and Sharp */
+/*  The Glass Card: Clean and Sharp */
 .login-card {
   background: rgba(255, 255, 255, 0.04); 
   backdrop-filter: blur(20px);           
@@ -26,7 +26,7 @@
   transition: transform 0.3s ease, background 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* 3. SUBTLE HOVER: Just a tiny lift and a soft light-up */
+/*  SUBTLE HOVER: Just a tiny lift and a soft light-up */
 .login-card:hover {
   transform: translateY(-4px); /* Very small movement */
   background: rgba(255, 255, 255, 0.07); /* Slightly brighter glass */
@@ -34,7 +34,7 @@
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); /* Shadow deepens just a bit */
 }
 
-/* 4. Brand Icon (No rotation, just a clean box) */
+/*  Brand Icon (No rotation, just a clean box) */
 .brand-icon {
   background: rgba(99, 102, 241, 0.1); 
   width: 60px;
@@ -48,7 +48,7 @@
   border: 1px solid rgba(99, 102, 241, 0.2);
 }
 
-/* 5. Typography */
+/*  Typography */
 h1 {
   color: #ffffff;
   font-size: 26px;
@@ -59,13 +59,13 @@ h1 {
 
 /* This targets only the <p> tags that are inside .login-container */
 .login-container p {
-  color: #94a3b8;      /* Your specific orange color */
+  color: #94a3b8;      
   font-size: 15px;
   margin-bottom: 32px;
   opacity: 1;          /* Ensures it's fully visible */
 }
 
-/* 6. Button Wrapper (The only part that stays bright white) */
+/* (The only part that stays bright white) */
 .google-button-wrapper {
   display: flex;
   justify-content: center;
@@ -75,7 +75,7 @@ h1 {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* 7. Footer Links */
+/*  Footer Links */
 .login-footer {
   margin-top: 32px;
   font-size: 12px;

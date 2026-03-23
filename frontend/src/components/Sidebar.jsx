@@ -1,3 +1,9 @@
+// 1. Display all chat sessions in a list
+// 2. Highlight the active session
+// 3. Create, rename, and delete sessions
+// 4. Toggle dark/light mode
+// 5. Display user info and logout functionality
+// 6. Handle clicks outside dropdowns to close menus
 import { useEffect, useState, useRef } from "react";
 import SessionItem from "./SessionItem";
 import { getUser, logout } from "../services/auth";
@@ -5,20 +11,22 @@ import { createSession, getSessions, deleteSession, renameSession } from "../ser
 import Swal from "sweetalert2";
 import "../styles/sidebar.css";
 
+// Sidebar manages chat sessions and user settings.
+// It shows the New Chat button, session list, and a footer with theme/logout options.
 function Sidebar({ activeSession, setActiveSession, sessions, setSessions }) {
 
   const [showSettings, setShowSettings] = useState(false); // toggle menu
   const [darkMode, setDarkMode] = useState(false); // theme toggle
 
-  // 🔹 Ref to track footer (user + dropdown area)
+  //  Ref to track footer (user + dropdown area)
   const settingsRef = useRef(null);
 
-  // 🔹 Load sessions on mount
+  //  Load sessions on mount
   useEffect(() => {
     loadSessions();
   }, []);
 
-  // 🔹 Close settings dropdown when clicking outside
+  //  Close settings dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
 
@@ -38,7 +46,7 @@ function Sidebar({ activeSession, setActiveSession, sessions, setSessions }) {
 
   const user = getUser();
 
-  // 🔹 Fetch sessions from backend
+  //  Fetch sessions from backend
   const loadSessions = async () => {
     try {
       const data = await getSessions();
@@ -55,7 +63,7 @@ function Sidebar({ activeSession, setActiveSession, sessions, setSessions }) {
     }
   };
 
-  // 🔹 Create new chat
+  //  Create new chat
   const handleNewChat = async () => {
     try {
       const session = await createSession();
@@ -66,7 +74,7 @@ function Sidebar({ activeSession, setActiveSession, sessions, setSessions }) {
     }
   };
 
-  // 🔹 Delete session
+  //  Delete session
   const handleDeleteSession = async (session) => {
     const result = await Swal.fire({
       title: "Delete Chat?",
@@ -106,7 +114,7 @@ function Sidebar({ activeSession, setActiveSession, sessions, setSessions }) {
     }
   };
 
-  // 🔹 Rename session
+  //  Rename session
   const handleRenameSession = async (session) => {
 
     const { value: newTitle } = await Swal.fire({
@@ -143,7 +151,7 @@ function Sidebar({ activeSession, setActiveSession, sessions, setSessions }) {
     }
   };
 
-  // 🔹 Toggle dark mode
+  //  Toggle dark mode
   const handleToggleTheme = () => {
     const newMode = !darkMode;
     setDarkMode(newMode);
@@ -151,7 +159,7 @@ function Sidebar({ activeSession, setActiveSession, sessions, setSessions }) {
     document.body.classList.toggle("dark-mode", newMode);
   };
 
-  // 🔹 Logout
+  //  Logout
   const handleLogout = () => {
     logout();
     window.location.href = "/";
@@ -160,12 +168,12 @@ function Sidebar({ activeSession, setActiveSession, sessions, setSessions }) {
   return (
     <div className="sidebar">
 
-      {/* 🔹 New Chat Button */}
+      {/*  New Chat Button */}
       <button className="new-chat" onClick={handleNewChat}>
         + New Chat
       </button>
 
-      {/* 🔹 Session List */}
+      {/*  Session List */}
       <div className="sessions">
         {sessions.map((session) => (
           <SessionItem
@@ -179,10 +187,10 @@ function Sidebar({ activeSession, setActiveSession, sessions, setSessions }) {
         ))}
       </div>
 
-      {/* 🔹 Sidebar Footer (User + Settings) */}
+      {/*  Sidebar Footer (User + Settings) */}
       <div className="sidebar-footer" ref={settingsRef}>
 
-        {/* 🔹 User Info Row (toggle dropdown) */}
+        {/*  User Info Row (toggle dropdown) */}
         <div
           className="user-info"
           onClick={() => setShowSettings(!showSettings)}
@@ -193,7 +201,7 @@ function Sidebar({ activeSession, setActiveSession, sessions, setSessions }) {
           <div className="settings-icon">⚙️</div>
         </div>
 
-        {/* 🔹 Settings Dropdown */}
+        {/*  Settings Dropdown */}
         {showSettings && (
           <div className="settings-menu">
 

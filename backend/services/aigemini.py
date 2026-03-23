@@ -48,7 +48,7 @@ def build_chat_context(messages):
 # -----------------------------------------------------------
 def generate_ai_response(user_message: str, model_name="gemini-2.5-flash"):
     try:
-        # ✅ create model dynamically
+        #  create model dynamically
         model = genai.GenerativeModel(model_name)
 
         # Send message

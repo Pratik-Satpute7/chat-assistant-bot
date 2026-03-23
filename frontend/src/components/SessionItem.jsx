@@ -1,27 +1,31 @@
+// It handles:
+// 1. Displaying the session title
+// 2. Highlighting the active session
+// 3. Handling selection of a session
+// 4. Showing a dropdown menu with options to rename or delete
+// 5. Closing the dropdown when clicking outside
+// ---------------------------------------------
 import { useState, useEffect, useRef } from "react";
 import "../styles/sidebar.css";
 
+// It supports selecting, rename/delete options, and outside click to close menu.
 function SessionItem({ session, active, onSelect, onRename, onDelete }) {
 
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(false); // show/hide the action menu
 
-  // 🔹 Ref to track this component
+  // Ref to the session item DOM node (for outside-click detection)
   const menuRef = useRef(null);
 
-  // 🔹 Close dropdown when clicking outside
+  // Close the dropdown menu when user clicks outside this item
   useEffect(() => {
     const handleClickOutside = (event) => {
-
-      // If click is outside this component → close menu
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setShowMenu(false);
       }
     };
 
-    // Add event listener
     document.addEventListener("click", handleClickOutside);
 
-    // Cleanup (important to avoid memory leaks)
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
@@ -38,10 +42,11 @@ function SessionItem({ session, active, onSelect, onRename, onDelete }) {
         {session.title}
       </span>
 
+      {/* Three-dot menu trigger */}
       <div
         className="session-menu"
         onClick={(e) => {
-          e.stopPropagation();
+          e.stopPropagation(); // prevent selecting session when opening menu
           setShowMenu(!showMenu);
         }}
       >

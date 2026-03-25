@@ -8,7 +8,7 @@
 // ----------------------------------------------------------------------------------
 import "../styles/input.css";
 import { useState, useRef, useEffect } from "react";
-import { sendMessage, createSession } from "../services/api";
+import { sendMessage, createSession,generateSmartTitle,renameSession } from "../services/api";
 import useSpeechToText from "../hooks/useSpeechToText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone } from "@fortawesome/free-solid-svg-icons";
@@ -98,35 +98,41 @@ function MessageInput({
       setIsTyping(false); // Hide typing indicator
 
       // Auto-generate smart title if it's a new session
-      if (currentSession.title === "New Chat") {
-        let newTitle;
+if (currentSession.title === "New Chat") {
+  let newTitle;
 
-        try {
-          const res = await generateSmartTitle(text);
-          console.log("SMART TITLE RESPONSE:", res); // Debug log
-          // Extract title from response
-          newTitle = res;
-          // Fallback if no title
-          if (!newTitle || newTitle.trim() === "") {
-            newTitle = "New Chat";
-          }
-        } catch {
-          newTitle = "New Chat";
-        }
+  try {
+    //  Call backend API
+    const title = await generateSmartTitle(text);
 
-        // Rename the session
-        await renameSession(currentSession.id, newTitle);
+    console.log("SMART TITLE:", title);
 
-        // Update sessions list
-        setSessions(prev =>
-          prev.map(s =>
-            s.id === currentSession.id ? { ...s, title: newTitle } : s
-          )
-        );
+    // Assign properly
+    newTitle = title;
 
-        // Update active session
-        setActiveSession(prev => ({ ...prev, title: newTitle }));
-      }
+    // fallback safety
+    if (!newTitle || newTitle.trim() === "") {
+      newTitle = "New Chat.";
+    }
+
+  } catch (err) {
+    console.error("Smart title error:", err);
+    newTitle = "New Chat";
+  }
+
+  // Rename in backend
+  await renameSession(currentSession.id, newTitle);
+
+  //  Update UI
+  setSessions(prev =>
+    prev.map(s =>
+      s.id === currentSession.id ? { ...s, title: newTitle } : s
+    )
+  );
+
+  //  Update active session
+  setActiveSession(prev => ({ ...prev, title: newTitle }));
+}
 
     } catch (error) {
       console.error(error);

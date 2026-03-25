@@ -2,8 +2,8 @@ import axios from "axios";
 import { getToken } from "./auth";
 
 // Base URL for backend API
-const API_BASE = "https://chat-assistant-bot-uiue.onrender.com";
-//  const API_BASE = "http://127.0.0.1:8000";
+// const API_BASE = "https://chat-assistant-bot-uiue.onrender.com";
+  const API_BASE = "http://127.0.0.1:8000";
 
 // Axios instance with Authorization header
 const api = axios.create({
@@ -70,6 +70,6 @@ export async function getMessages(sessionId) {
 
 // samrt session title update based on first user message
 export async function generateSmartTitle(message) {
-  const res = await api.post("/session/smart-title", { message });
+  const res = await api.post("/session/generate-title", { message });
   return res.data.title;
 }

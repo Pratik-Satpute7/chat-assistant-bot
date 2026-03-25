@@ -66,6 +66,7 @@ export async function sendMessage(data) {
 export async function getMessages(sessionId) {
   const res = await api.get(`/message/history/${sessionId}`);
   return res.data;
+  console.log("Fetched messages:", res.data);
 }
 
 // samrt session title update based on first user message

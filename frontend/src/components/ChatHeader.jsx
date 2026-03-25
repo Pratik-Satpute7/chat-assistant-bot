@@ -7,9 +7,6 @@ import { getUser } from "../services/auth";
 import { useState, useRef, useEffect } from "react";
 import "../styles/chat.css";
 
-import { FaBeer } from 'react-icons/fa';
-import { IconName } from "react-icons/ai";
-
 function ChatHeader({ model, setModel, onToggleSidebar }) {
 
   const navigate = useNavigate();
@@ -37,8 +34,7 @@ function ChatHeader({ model, setModel, onToggleSidebar }) {
     { label: "🧠 gemini-2.0-flash", value: "gemini-2.0-flash" },
     { label: "⚡ gemini-flash-latest", value: "gemini-flash-latest" },
     { label: "🧠 gemini-2.5-flash-lite", value: "gemini-2.5-flash-lite" },
-    { label: "⚡ gemini-flash-lite-latest", value: "gemini-flash-lite-latest" },
-    {label:<AiFillAccountBook />, value: "gemini-2.5-flash-lite" }
+    { label: "⚡ gemini-flash-lite-latest", value: "gemini-flash-lite-latest" }
   ];
 
   return (

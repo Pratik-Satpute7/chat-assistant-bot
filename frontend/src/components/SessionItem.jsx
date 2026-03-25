@@ -33,7 +33,7 @@ function SessionItem({ session, active, onSelect, onRename, onDelete }) {
 
   return (
     <div
-      ref={menuRef}  // 🔹 Attach ref here
+      ref={menuRef}  //  Attach ref here
       className={`session-item ${active ? "active" : ""}`}
       onClick={() => onSelect(session)}
     >

@@ -136,5 +136,3 @@ def get_messages(session_id: str,
 
     return messages
 
-
-# api for session auto rename

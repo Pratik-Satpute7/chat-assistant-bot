@@ -3,7 +3,7 @@
 # Import the id_token module to verify Google tokens
 from google.oauth2 import id_token
 
-# Import request module used during token verification
+# Import request module used during token verification used send request to Google server
 from google.auth.transport import requests
 
 # Import our project configuration (to access Google Client ID)
@@ -12,7 +12,7 @@ from config import GOOGLE_CLIENT_ID
 
 # Function to verify Google ID token
 def verify_google_token(token: str):
-    print("in token verify",token)
+    
     try:
         # Verify the token with Google servers
         idinfo = id_token.verify_oauth2_token(
@@ -28,7 +28,6 @@ def verify_google_token(token: str):
             "name": idinfo.get("name"),      # user's name
             "picture": idinfo.get("picture") # user's profile image
         }
-        print("*********************************************", user_data)
 
         return user_data
         

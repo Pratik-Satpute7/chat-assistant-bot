@@ -4,10 +4,10 @@ import App from "./App";
 import "./styles/chat.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
+const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <GoogleOAuthProvider clientId='361932622014-67tv9l9sn9h240dcn36rdstkc473chqk.apps.googleusercontent.com'>
-     <App />
+  <GoogleOAuthProvider clientId={clientId}>
+    <App />
   </GoogleOAuthProvider>
-   
- 
 );

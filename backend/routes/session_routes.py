@@ -40,7 +40,7 @@ def create_session(
         "message": "Session created",
         "session_id": str(new_session.id),
         "title": new_session.session_name,
-        "created_at": new_session.created_at   # ✅ ADD THIS
+        "created_at": new_session.created_at   
     }
 
 
